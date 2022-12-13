@@ -3,21 +3,19 @@ import * as THREE from 'three';
 import gsap from 'gsap';
 
 const linesData = [
-  ['red', '', 1],
-  ['blue', '<', 2],
-  ['green', '<', 4],
-  ['purple', '<', 6],
-  ['teal', '<', 5],
-  ['blue', '<', 11],
-  ['purple', '<', 8],
-  ['red', '<', 7],
-  ['crimson', '<', 12],
-  ['orange', '<', 9],
-  ['purple', '<', 5],
-  ['crimson', '<', 5],
-  ['teal', '<', 8],
-  ['blue', '<', 10],
-  ['red', '<', 13],
+  ['red', '', 0.18],
+  ['blue', '<', 0.67],
+  ['green', '<', 0.63],
+  ['purple', '<', 0.85],
+  ['teal', '<', 0.46],
+  ['blue', '<', 0.7],
+  ['purple', '<', 0.98],
+  ['red', '<', 0.57],
+  ['crimson', '<', 0.14],
+  ['orange', '<', 0.1],
+  ['purple', '<', 0.6],
+  ['crimson', '<', 0.43],
+  ['teal', '<', 0.48],
 ];
 
 const modelLineMaterial = new THREE.MeshStandardMaterial();
@@ -37,18 +35,15 @@ export default class ModelLines {
       const mesh = this.line.clone();
       mesh.material = modelLineMaterial.clone();
       mesh.material.color = new THREE.Color(linesData[i][0]);
+      mesh.material.depthWrite = false;
+      mesh.material.transparent = true;
+      mesh.material.needsUpdate = true;
       mesh.visible = false;
       // mesh.material.wireframe = true;
 
-      // console.log(mesh.geometry);
-      // mesh.material.flatShading = false;
-      // mesh.geometry.computeVertexNormals();
-      // console.log(mesh.material)
-
-      mesh.position.z = i * -this.posOffsetZ;
-      mesh.rotation.z = 2.7 + 0.049 * linesData[i][2];
-      mesh.scale.set(1.01,1.01,1);
-      mesh.layers.enable(1);
+      mesh.position.z = i * -this.posOffsetZ - 0.01;
+      mesh.rotation.z = 2.7 + linesData[i][2];
+      // mesh.layers.enable(1);
 
       this.lines.push(mesh);
       this.group.add(mesh);
@@ -63,13 +58,17 @@ export default class ModelLines {
     });
 
     this.lines.forEach((line, index) => {
-      this.timeline.to(
-        line.rotation,
-        { z: 0, duration: Math.random() + 2 },
-        linesData[index][1]
-      );
+      const dur = Math.random() * 2 + 2;
+      console.log(index, dur);
+      this.timeline
+        .to(line.rotation, { z: -0.8, duration: dur }, linesData[index][1])
+        .fromTo(line.material, { opacity: 0 }, { opacity: 1 }, '<');
     });
-    // Math.random() * 3 + 1
+
+    this.lines.forEach((line) => {
+      this.timeline.set(line, { visible: false }, '-=0.5');
+    });
+
     return this.timeline;
   }
 }

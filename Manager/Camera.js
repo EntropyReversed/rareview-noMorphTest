@@ -89,7 +89,7 @@ export default class Camera {
 
         {
           x: 0,
-          y: -1.09,
+          y: -1.05,
           z: -0.41,
           duration: 1,
           onUpdate: () => {
@@ -101,11 +101,19 @@ export default class Camera {
   }
 
   getTimeline2() {
-    this.timeline2 = gsap.timeline().to(
-      this.perspectiveCamera.rotation,
+    this.timeline2 = gsap
+      .timeline()
+      .to(
+        this.perspectiveCamera.position,
 
-      { x: 0, y: -1.09, z: -0.41, duration: 2 }
-    );
+        { x: -4.85, y: 2.86, z: 5.78, duration: 2 }
+      )
+      .to(
+        this.perspectiveCamera.rotation,
+
+        { x: -1, y: -1, z: -1.58, duration: 2 },
+        '<'
+      );
 
     return this.timeline2;
   }

@@ -13,6 +13,7 @@ export default class Model {
     this.scene = this.manager.scene;
     this.resources = this.manager.resources;
     this.model = this.resources.items.model;
+    this.mainColor = new THREE.Color('rgb(200,200,200)');
 
     this.setModel();
 
@@ -29,6 +30,7 @@ export default class Model {
     this.modelGroup = new THREE.Group();
 
     this.model.scene.traverse((child) => {
+      console.log(child);
       if (child.name === 'Circle') {
         this.circle = child;
         this.setModelPart(child, 1, true);
@@ -47,10 +49,13 @@ export default class Model {
       if (child.name === 'rim') {
         this.edge = child;
       }
+      if (child.name === 'rimInner') {
+        this.edgeInner = child
+      }
     });
 
     this.modelLines = new ModelLines(this.mLines, this.rimRingGroup);
-    this.edgeRim = new EdgeRim(this.edge, this.rimRingGroup);
+    this.edgeRim = new EdgeRim(this.edge, this.edgeInner, this.rimRingGroup, this.mainColor);
 
     this.modelGroup.add(this.circle);
     this.modelGroup.add(this.letters);
@@ -74,7 +79,7 @@ export default class Model {
     // part.geometry.normalsNeedUpdate = true;
 
     part.material.transparent = true;
-    part.material.color = new THREE.Color('rgb(200,200,200)');
+    part.material.color = this.mainColor;
 
     part.material.opacity = startOp;
     part.material.metalness = 0;
@@ -92,7 +97,7 @@ export default class Model {
   createTimeline() {
     this.timeline = gsap
       .timeline()
- 
+
       .to(this.circle.material, { opacity: 0.3 })
       .to(this.modelGroup.scale, { x: 0.8, y: 0.8, duration: 0.8 }, '<')
       .to(this.modelGroup.scale, { x: 1.2, y: 1.2, duration: 0.2 })

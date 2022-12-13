@@ -2,7 +2,7 @@ export default [
   {
     name: 'model',
     type: 'glbModel',
-    path: '/3PartMesh.glb',
+    path: '/rv2.glb',
   },
   // {
   //   name: 'model',
