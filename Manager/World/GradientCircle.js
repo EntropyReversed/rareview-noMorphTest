@@ -119,8 +119,21 @@ export default class GradientCircle {
         '<+=0.1'
       )
       .to(this.model.letters.position, { z: -0.2, duration: 0.1 }, '<+=0.2')
+      .fromTo(
+        '.thirdTitle',
+        { opacity: 0 },
+        { opacity: 1, duration: 0.2, ease: 'power3.out' },
+        '<'
+      )
+      .fromTo(
+        '.thirdTitle',
+        { scale: 10 },
+        { scale: 1, duration: 0.2, ease: 'power3.out' },
+        '<'
+      )
+      .to('.thirdTitle', { opacity: 0 }, '<+0.3')
 
-      .to(this.model.lettersTop.position, { z: 0.2, duration: 0.2 })
+      .to(this.model.lettersTop.position, { z: 0.2, duration: 0.2 }, "-=0.3")
       .to(this.model.lettersTop.scale, { z: 1.9, duration: 0.2 }, '<');
   }
 

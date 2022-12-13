@@ -30,7 +30,7 @@ export default class Text {
           opacity: 0,
           duration: 0.1,
         },
-        '+=0.1'
+        '+=0.2'
       );
   }
 

@@ -97,12 +97,15 @@ footer {
   font-weight: 400;
   /* opacity: 0; */
   font-family: sans-serif;
-  transition: 0.3s ease-in-out;
+  /* transition: 0.3s ease-in-out; */
   user-select: none;
   pointer-events: none;
   display: flex;
   flex-direction: column;
-  height: 116px;
+}
+
+.scene h2.thirdTitle {
+  top: 20%;
 }
 
 .scene h2 div {
@@ -133,5 +136,5 @@ footer {
 }
 
 .scene-wrap {
-  height: 1300vh;
+  height: 1500vh;
 }

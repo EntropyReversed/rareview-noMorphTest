@@ -56,7 +56,8 @@ export default class Resources extends EventEmitter {
 
     if (this.loaded === this.queue) {
       this.emit('ready');
-      setTimeout(() => {document.body.classList.remove('loading')}, 1000)
+      // document.body.classList.remove('loading');
+      setTimeout(() => {document.body.classList.remove('loading')}, 500)
     }
   }
 }

@@ -50,12 +50,17 @@ export default class Model {
         this.edge = child;
       }
       if (child.name === 'rimInner') {
-        this.edgeInner = child
+        this.edgeInner = child;
       }
     });
 
     this.modelLines = new ModelLines(this.mLines, this.rimRingGroup);
-    this.edgeRim = new EdgeRim(this.edge, this.edgeInner, this.rimRingGroup, this.mainColor);
+    this.edgeRim = new EdgeRim(
+      this.edge,
+      this.edgeInner,
+      this.rimRingGroup,
+      this.mainColor
+    );
 
     this.modelGroup.add(this.circle);
     this.modelGroup.add(this.letters);
@@ -121,11 +126,20 @@ export default class Model {
         { x: 0, z: 0.5, duration: 0.4, ease: 'power3.out' },
         '<+0.2'
       )
-      // .to(this.lettersTop.material, { opacity: 0.4 }, '<')
-      .to(this.lettersTop.material, { opacity: 1 }, '<+0.5');
-
-    // this.timeline3 = gsap.timeline()
-    // .to(this.modelGroup.position, {z:6})
-    // .to(this.modelGroup.rotation, {x:1})
+      .to(this.lettersTop.material, { opacity: 0.3 })
+      .fromTo(
+        '.secondTitle',
+        { opacity: 0 },
+        { opacity: 1, duration: 0.2, ease: 'power3.out' },
+        '<'
+      )
+      .fromTo(
+        '.secondTitle',
+        { scale: 10 },
+        { scale: 1, duration: 0.2, ease: 'power3.out' },
+        '<'
+      )
+      .to('.secondTitle', { opacity: 0 }, '<+0.5')
+      .to(this.lettersTop.material, { opacity: 1 }, '<+0.2');
   }
 }

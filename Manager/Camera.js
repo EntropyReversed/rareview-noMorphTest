@@ -54,7 +54,7 @@ export default class Camera {
   getTimeline() {
     this.timeline = gsap
       .timeline()
-      .to(this.manager.world.enviroment.sunLight, {intensity: 0})
+      .to(this.manager.world.enviroment.sunLight, { intensity: 0 })
       .to(
         this.perspectiveCamera.rotation,
 
@@ -67,7 +67,7 @@ export default class Camera {
             this.perspectiveCamera.updateProjectionMatrix();
           },
         },
-        "<"
+        '<'
       )
 
       .to(
@@ -114,7 +114,7 @@ export default class Camera {
           z: -0.2,
         },
         '<'
-      )
+      );
     return this.timeline;
   }
 
@@ -131,7 +131,21 @@ export default class Camera {
 
         { x: -1, y: -1, z: -1.58, duration: 2 },
         '<'
-      ).to(this.manager.world.enviroment.sunLight, {intensity: 1}, "<+=0.5");;
+      )
+      .to(this.manager.world.enviroment.sunLight, { intensity: 1 }, '<+0.5')
+      .fromTo(
+        '.fourthTitle',
+        { opacity: 0 },
+        { opacity: 1, duration: 0.2, ease: 'power3.out' },
+        '<+0.5'
+      )
+      .fromTo(
+        '.fourthTitle',
+        { scale: 10 },
+        { scale: 1, duration: 0.2, ease: 'power3.out' },
+        '<'
+      )
+      .to('.fourthTitle', { opacity: 0 }, '<+0.6');
 
     return this.timeline2;
   }

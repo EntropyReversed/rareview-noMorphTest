@@ -58,7 +58,7 @@ export default class ModelLines {
     });
 
     this.lines.forEach((line, index) => {
-      const dur = Math.random() * 3 + 2;
+      const dur = Math.random() * 2 + 2;
       console.log(index, dur);
       this.timeline
         .to(line.rotation, { z: -0.8, duration: dur }, linesData[index][1])
