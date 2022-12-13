@@ -64,12 +64,16 @@ export default class Camera {
         { x: 0, y: 0, z: -0.8, duration: 0.5 }
       )
 
-      .to(this.perspectiveCamera.position, {
-        x: -2,
-        y: 1,
-        z: 3.5,
-        duration:0.7,
-      }, '<')
+      .to(
+        this.perspectiveCamera.position,
+        {
+          x: -2,
+          y: 1,
+          z: 3.5,
+          duration: 0.7,
+        },
+        '<'
+      )
       // .to(
       //   this.perspectiveCamera.rotation,
 
@@ -79,20 +83,17 @@ export default class Camera {
       .to(
         this.perspectiveCamera.rotation,
 
-        { x: 0, y: -1.09, z: -0.41, duration: 1.5 }, 
+        { x: 0, y: -1.09, z: -0.41, duration: 1 }
       );
     return this.timeline;
   }
 
   getTimeline2() {
-    this.timeline2 = gsap
-      .timeline()
-      .to(
-        this.perspectiveCamera.rotation,
+    this.timeline2 = gsap.timeline().to(
+      this.perspectiveCamera.rotation,
 
-        { x: 0, y: -1.09, z: -0.41, duration: 2 }
-      )
-
+      { x: 0, y: -1.09, z: -0.41, duration: 2 }
+    );
 
     return this.timeline2;
   }

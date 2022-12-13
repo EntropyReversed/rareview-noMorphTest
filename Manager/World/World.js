@@ -39,7 +39,7 @@ export default class World {
       .add(gradientTimeline, '-=0.1')
       // .add(modelTimeline3);
       .add(cameraTimeline)
-      .add(modelLinesTimeline, '<+=0.18')
+      .add(modelLinesTimeline, '<')
       // .add(cameraTimeline2, "-=1");
 
     this.scrollTrigger = new TriggerScroll();

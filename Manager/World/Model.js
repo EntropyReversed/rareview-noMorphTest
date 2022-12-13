@@ -57,7 +57,7 @@ export default class Model {
     this.modelGroup.add(this.lettersTop);
     // this.modelGroup.scale.set(0.47, 0.47, 0.47);
 
-    this.rimRingGroup.scale.set(0.47, 0.47, 0.47);
+    // this.rimRingGroup.scale.set(0.47, 0.47, 0.47);
     this.modelGroup.add(this.rimRingGroup);
 
     this.scene.add(this.modelGroup);
