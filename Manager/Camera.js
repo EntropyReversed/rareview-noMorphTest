@@ -30,17 +30,13 @@ export default class Camera {
     // this.helper = new THREE.CameraHelper(this.perspectiveCamera);
     // this.scene.add(this.helper);
 
-    // const lookAtVector = new THREE.Vector3(0, 0, 0);
-    // const rotAtVector = new THREE.Vector3(0, 0, 0);
-    // const target = new THREE.Vector3(0, 0, 0);
-    // console.log(target);
-    // // target.copy( lookAtVector ).add( rotAtVector );
-    // // object.lookAt( target );
-
     // const gui = new GUI();
     // const folder = gui.addFolder('Camera Pos');
 
-    // folder.add(this.perspectiveCamera.position, 'x', -30, 30, 0.01);
+    // const lookAtVector = new THREE.Vector3(0, 0, 0);
+    // folder.add(this.perspectiveCamera.position, 'x', -30, 30, 0.01).onChange(() => {
+    //   // this.perspectiveCamera.lookAt(lookAtVector)
+    // });
     // folder.add(this.perspectiveCamera.position, 'y', -30, 30, 0.01);
     // folder.add(this.perspectiveCamera.position, 'z', -30, 30, 0.01);
     // folder.open();
@@ -58,6 +54,7 @@ export default class Camera {
   getTimeline() {
     this.timeline = gsap
       .timeline()
+      .to(this.manager.world.enviroment.sunLight, {intensity: 0})
       .to(
         this.perspectiveCamera.rotation,
 
@@ -69,8 +66,10 @@ export default class Camera {
           onUpdate: () => {
             this.perspectiveCamera.updateProjectionMatrix();
           },
-        }
+        },
+        "<"
       )
+
       .to(
         this.perspectiveCamera.position,
         {
@@ -84,6 +83,7 @@ export default class Camera {
         },
         '<'
       )
+
       .to(
         this.perspectiveCamera.rotation,
 
@@ -96,7 +96,25 @@ export default class Camera {
             this.perspectiveCamera.updateProjectionMatrix();
           },
         }
-      );
+      )
+      .to(
+        this.manager.world.enviroment.sunLight.position,
+        {
+          x: 24,
+          y: 4.8,
+          z: 4,
+        },
+        '<'
+      )
+      .to(
+        this.manager.world.enviroment.sunLightTarget.position,
+        {
+          x: -8.4,
+          y: -3.5,
+          z: -0.2,
+        },
+        '<'
+      )
     return this.timeline;
   }
 
@@ -113,7 +131,7 @@ export default class Camera {
 
         { x: -1, y: -1, z: -1.58, duration: 2 },
         '<'
-      );
+      ).to(this.manager.world.enviroment.sunLight, {intensity: 1}, "<+=0.5");;
 
     return this.timeline2;
   }

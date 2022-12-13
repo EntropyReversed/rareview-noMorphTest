@@ -1,13 +1,16 @@
 import * as THREE from 'three';
 import gsap from 'gsap';
 import ShaderInnerRim from '../../Manager/World/ShaderInnerRim';
+import Manager from '../../Manager/Manager';
 
 export default class EdgeRim {
   constructor(edge, inner, group, color) {
+    this.manager = new Manager();
     this.edge = edge;
     this.inner = inner;
     this.group = group;
     this.color = color;
+    this.texture = this.manager.world.textures.gradientTexture;
     this.setUp();
     this.setInner();
   }
@@ -26,7 +29,6 @@ export default class EdgeRim {
   setInner() {
     // this.inner.visible = false;
     this.inner.rotation.z = -0.95;
-    this.texture = new THREE.CanvasTexture(this.generateTexture());
 
     this.uniforms = THREE.UniformsUtils.merge([
       { u_texture: { value: null } },
@@ -46,24 +48,6 @@ export default class EdgeRim {
     this.inner.material = this.materialGrad;
 
     this.group.add(this.inner);
-  }
-
-  //TODO: merge this one with one in GradientCircle.js
-  generateTexture() {
-    const size = 1024;
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
-    canvas.width = size;
-    canvas.height = size;
-    ctx.rect(0, 0, size, size);
-
-    const gradient = ctx.createLinearGradient(size / 2, 0, size / 2, size);
-    gradient.addColorStop(0, '#a59bf4');
-    gradient.addColorStop(1, '#f2a0ac');
-    ctx.fillStyle = gradient;
-    ctx.fill();
-
-    return canvas;
   }
 
   getTimeline() {

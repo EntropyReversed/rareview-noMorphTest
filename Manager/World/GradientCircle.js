@@ -12,16 +12,15 @@ export default class GradientCircle {
     this.scene = this.manager.scene;
     this.model = model;
     this.masterTimeline = this.manager.masterTimeline;
+    this.texture = this.manager.world.textures.gradientTexture;
+    this.lettersTex = this.manager.world.textures.lettersTexture;
     this.timeline = gsap.timeline();
-
     this.setCircleGrad();
     this.setUpTimeline();
   }
 
   setCircleGrad() {
     this.circle = new THREE.Mesh();
-
-    this.texture = new THREE.CanvasTexture(this.generateTexture());
     this.geometry = new THREE.PlaneGeometry(4.25, 4.25);
 
     this.clock = new THREE.Clock();
@@ -47,7 +46,6 @@ export default class GradientCircle {
     // Texture needs to be assigned here so it's not cloned
     this.materialGrad.uniforms.u_texture.value = this.texture;
 
-    this.lettersTex = new THREE.CanvasTexture(this.generateTextureLetters());
     this.lettersTex.anisotropy =
       this.manager.renderer.renderer.capabilities.getMaxAnisotropy();
 
@@ -73,6 +71,8 @@ export default class GradientCircle {
 
       .to(this.model.modelGroup.rotation, { x: -1, z: -0.7, duration: 1 })
       .to(this.model.modelGroup.position, { z: 4, duration: 0.8 }, '<')
+      // .to(this.manager.camera.perspectiveCamera.rotation, {x: 0.94, y: 0.68, z: 0.46})
+      // .to(this.manager.camera.perspectiveCamera.position, {x: 5, y: -5, z: 4.6}, "<")
 
       .to(this.circle.scale, { x: 1, y: 1 }, '<+0.3')
 
@@ -122,61 +122,6 @@ export default class GradientCircle {
 
       .to(this.model.lettersTop.position, { z: 0.2, duration: 0.2 })
       .to(this.model.lettersTop.scale, { z: 1.9, duration: 0.2 }, '<');
-  }
-
-  generateTexture() {
-    const size = 1024;
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
-    canvas.width = size;
-    canvas.height = size;
-    ctx.rect(0, 0, size, size);
-
-    const gradient = ctx.createLinearGradient(size / 2, 0, size / 2, size);
-    gradient.addColorStop(0, '#a59bf4');
-    gradient.addColorStop(1, '#f2a0ac');
-    ctx.fillStyle = gradient;
-    ctx.fill();
-
-    return canvas;
-  }
-
-  generateTextureLetters() {
-    const size = 1024;
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
-
-    const scaleR = 1.686;
-    const scaleV = 1.687;
-    canvas.width = size;
-    canvas.height = size;
-
-    ctx.fillStyle = 'black';
-    ctx.rect(0, 0, size, size);
-    ctx.fill();
-
-    ctx.strokeStyle = 'white';
-    ctx.lineWidth = 4.7;
-    ctx.save();
-    var path = new Path2D(
-      'M141.869,55.953C141.869,55.953 128.131,7.141 128.135,7.092C127.644,7.01 33.151,-7.164 7.778,84.888C6.68,88.854 6.175,92.961 6.281,97.074C6.306,126.76 6.442,253.022 6.442,253.022L56.985,253.114C56.985,253.114 57.034,106.642 57.034,106.6C57.034,106.6 57.034,106.6 57.034,106.6C57.033,106.475 56.68,46.314 141.869,55.953Z'
-    );
-    ctx.translate(238, 310);
-    ctx.scale(scaleR, scaleR);
-    ctx.stroke(path);
-    ctx.restore();
-
-    ctx.save();
-    ctx.beginPath();
-    var path2 = new Path2D(
-      'M6.261,6.374L58.787,6.37L108.943,182.21L157.887,6.261L209.294,6.371L141.601,235.429C141.601,235.429 133.913,255.488 108.65,255.272C80.912,255.035 74.056,231.984 74.057,231.984C74.058,231.985 6.261,6.374 6.261,6.374Z'
-    );
-    ctx.translate(468, 307.8);
-    ctx.scale(scaleV, scaleV);
-    ctx.stroke(path2);
-    ctx.restore();
-
-    return canvas;
   }
 
   updateTime() {

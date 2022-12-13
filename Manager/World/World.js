@@ -3,6 +3,7 @@ import Model from './Model';
 import Enviroment from './Enviroment';
 import Text from './Text';
 import TriggerScroll from '../Utils/TriggerScroll';
+import Textures from './Textures';
 
 export default class World {
   constructor() {
@@ -12,6 +13,7 @@ export default class World {
     this.text = new Text();
     this.camera = this.manager.camera;
     this.enviroment = new Enviroment();
+    this.textures = new Textures();
     this.resources.on('ready', () => {
       this.model = new Model();
       this.setUpTimeline();
@@ -42,7 +44,7 @@ export default class World {
       .add(cameraTimeline)
       .add(modelLinesTimeline, '<')
       .add(edgeTimeline, '-=1.5')
-      .add(cameraTimeline2, "-=1.3");
+      .add(cameraTimeline2, '-=1.7');
 
     this.scrollTrigger = new TriggerScroll();
   }
