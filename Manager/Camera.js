@@ -65,7 +65,7 @@ export default class Camera {
           x: 0,
           y: 0,
           z: -0.8,
-          duration: 0.7,
+          duration: 1,
           onUpdate: () => {
             this.perspectiveCamera.updateProjectionMatrix();
           },
@@ -77,7 +77,7 @@ export default class Camera {
           x: -2,
           y: 1,
           z: 3.5,
-          duration: 0.7,
+          duration: 1,
           onUpdate: () => {
             this.perspectiveCamera.updateProjectionMatrix();
           },

@@ -77,15 +77,15 @@ export default class EdgeRim {
       // .set(this.materialGrad, { depthWrite: true })
       .to(
         this.materialGrad.uniforms.progress,
-        { value: -0.2, duration: 1 },
+        { value: -0.2, duration: 1.5 },
         '<+=0.1'
       )
       .to(this.materialGrad.uniforms.opacity, { value: 0, duration: 1 })
       .fromTo(
         this.edge.material,
         { opacity: 0 },
-        { opacity: 1, duration: 1 },
-        '<'
+        { opacity: 1, duration: 0.5 },
+        '<-=0.2'
       );
 
     return this.timeline;

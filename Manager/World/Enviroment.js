@@ -20,8 +20,9 @@ export default class Enviroment {
     this.sunLight.shadow.bias = 0.001;
     this.sunLight.position.set(-1, 7, -5.5);
 
-    const helper = new THREE.CameraHelper(this.sunLight.shadow.camera);
-    this.scene.add(helper);
+    // const helper = new THREE.CameraHelper(this.sunLight.shadow.camera);
+    // this.scene.add(helper);
+
     this.scene.add(this.sunLight);
 
     this.spotLight = new THREE.SpotLight('#ffffff', 1.5);
@@ -31,20 +32,20 @@ export default class Enviroment {
     this.ambientlight = new THREE.AmbientLight('#ffffff', 1.2);
     this.scene.add(this.ambientlight);
 
-    const gui = new GUI();
-    const lightFolder = gui.addFolder('SpotLight');
+    // const gui = new GUI();
+    // const lightFolder = gui.addFolder('SpotLight');
 
-    lightFolder.add(this.spotLight.position, 'x', -40, 40);
-    lightFolder.add(this.spotLight.position, 'y', -40, 40);
-    lightFolder.add(this.spotLight.position, 'z', -40, 40);
-    lightFolder.open();
+    // lightFolder.add(this.spotLight.position, 'x', -40, 40);
+    // lightFolder.add(this.spotLight.position, 'y', -40, 40);
+    // lightFolder.add(this.spotLight.position, 'z', -40, 40);
+    // lightFolder.open();
 
-    const lightFolder2 = gui.addFolder('DirLight');
+    // const lightFolder2 = gui.addFolder('DirLight');
 
-    lightFolder2.add(this.sunLight.target.position, 'x', -40, 40);
-    lightFolder2.add(this.sunLight.target.position, 'y', -40, 40);
-    lightFolder2.add(this.sunLight.target.position, 'z', -40, 40);
+    // lightFolder2.add(this.sunLight.position, 'x', -40, 40);
+    // lightFolder2.add(this.sunLight.position, 'y', -40, 40);
+    // lightFolder2.add(this.sunLight.position, 'z', -40, 40);
 
-    lightFolder2.open();
+    // lightFolder2.open();
   }
 }
