@@ -47,7 +47,7 @@ export default class ModelLines {
 
       mesh.position.z = i * -this.posOffsetZ;
       mesh.rotation.z = 2.7 + 0.049 * linesData[i][2];
-      mesh.scale.z = 1;
+      mesh.scale.set(1.01,1.01,1);
       mesh.layers.enable(1);
 
       this.lines.push(mesh);
@@ -65,7 +65,7 @@ export default class ModelLines {
     this.lines.forEach((line, index) => {
       this.timeline.to(
         line.rotation,
-        { z: 0.2 - 0.049 * linesData[index][2], duration: Math.random() + 1 },
+        { z: 0, duration: Math.random() + 2 },
         linesData[index][1]
       );
     });

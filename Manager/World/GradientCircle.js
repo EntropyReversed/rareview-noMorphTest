@@ -22,7 +22,7 @@ export default class GradientCircle {
     this.circle = new THREE.Mesh();
 
     this.texture = new THREE.CanvasTexture(this.generateTexture());
-    this.geometry = new THREE.PlaneGeometry(4.3, 4.3);
+    this.geometry = new THREE.PlaneGeometry(4.25, 4.25);
 
     this.clock = new THREE.Clock();
 
@@ -56,21 +56,16 @@ export default class GradientCircle {
     this.circle.material = this.materialGrad;
     this.circle.position.z = 0.001;
 
-    this.model.lettersTop.position.z = 0.002;
+    this.model.lettersTop.position.z = 0.0012;
     this.model.modelGroup.add(this.circle);
   }
 
   setUpTimeline() {
     const c = new THREE.Color('rgb(0,0,0)');
     this.timeline
-
-      .set(this.model.lettersTop.position, { z: 0.002 })
-
+      .set(this.model.lettersTop.position, { z: 0.0012 })
       .fromTo(
         this.circle.scale,
-        // { x: 0.463, y: 0.463 },
-        // { x: 0.463, y: 0.463, duration: 0.8 }
-
         { x: 0, y: 0 },
         { x: 3.1, y: 3.1, duration: 0.8 }
       )
@@ -88,7 +83,7 @@ export default class GradientCircle {
       .set(this.model.circle.material, { metalness: 0.97 })
       .set(this.model.letters.material, { metalness: 0.97 })
       .set(this.model.lettersTop.material, {
-        color: new THREE.Color('rgb(0,0,0)'),
+        color: c,
       })
       .set(this.model.lettersTop.position, { z: 0 })
 
@@ -100,7 +95,7 @@ export default class GradientCircle {
         this.circle.material.uniforms.progress,
         {
           value: 1.1,
-          duration: 0.5,
+          duration: 0.8,
           ease: 'power3.out',
         },
         '<'
@@ -108,7 +103,7 @@ export default class GradientCircle {
       .to(
         this.model.lettersTop.material,
         { metalness: 0.97, duration: 0.15 },
-        '<'
+        '<+=0.1'
       )
       .to(
         c,
@@ -123,9 +118,10 @@ export default class GradientCircle {
         },
         '<+=0.1'
       )
-      .to(this.model.letters.position, { z: -0.1, duration: 0.2 }, '<+=0.1')
+      .to(this.model.letters.position, { z: -0.2, duration: 0.1 }, '<+=0.2')
 
-      .to(this.model.lettersTop.position, { z: 0.13 });
+      .to(this.model.lettersTop.position, { z: 0.2, duration: 0.2 })
+      .to(this.model.lettersTop.scale, { z: 1.9, duration: 0.2 }, '<');
   }
 
   generateTexture() {

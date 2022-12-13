@@ -61,9 +61,16 @@ export default class Camera {
       .to(
         this.perspectiveCamera.rotation,
 
-        { x: 0, y: 0, z: -0.8, duration: 0.5 }
+        {
+          x: 0,
+          y: 0,
+          z: -0.8,
+          duration: 0.7,
+          onUpdate: () => {
+            this.perspectiveCamera.updateProjectionMatrix();
+          },
+        }
       )
-
       .to(
         this.perspectiveCamera.position,
         {
@@ -71,19 +78,24 @@ export default class Camera {
           y: 1,
           z: 3.5,
           duration: 0.7,
+          onUpdate: () => {
+            this.perspectiveCamera.updateProjectionMatrix();
+          },
         },
         '<'
       )
-      // .to(
-      //   this.perspectiveCamera.rotation,
-
-      //   { x: 0, y: 0, z: -1.1, duration: 0.5 },
-      //   // '<'
-      // )
       .to(
         this.perspectiveCamera.rotation,
 
-        { x: 0, y: -1.09, z: -0.41, duration: 1 }
+        {
+          x: 0,
+          y: -1.09,
+          z: -0.41,
+          duration: 1,
+          onUpdate: () => {
+            this.perspectiveCamera.updateProjectionMatrix();
+          },
+        }
       );
     return this.timeline;
   }
