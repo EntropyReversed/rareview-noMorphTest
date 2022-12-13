@@ -11,6 +11,32 @@ body {
   color: white;
 }
 
+.loading-screen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #131313;
+  color: white;
+  z-index: 1;
+  user-select: none;
+  transition: opacity 0.2s ease-in-out;
+}
+
+body.loading {
+  height: 100vh;
+  overflow: hidden;
+}
+
+body:not(.loading) .loading-screen {
+  opacity: 0;
+  pointer-events: none;
+}
+
 /* width */
 body::-webkit-scrollbar {
   width: 6px;

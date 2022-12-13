@@ -14,6 +14,10 @@ export default class World {
     this.camera = this.manager.camera;
     this.enviroment = new Enviroment();
     this.textures = new Textures();
+    window.onbeforeunload = function () {
+      window.scrollTo(0, 0);
+    }
+
     this.resources.on('ready', () => {
       this.model = new Model();
       this.setUpTimeline();
