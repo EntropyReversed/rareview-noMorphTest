@@ -30,12 +30,12 @@ export default class Enviroment {
     this.ambientlight = new THREE.AmbientLight('#ffffff', 1.2);
     this.scene.add(this.ambientlight);
 
-    const gui = new GUI();
-    const lightFolder = gui.addFolder('Light');
+    // const gui = new GUI();
+    // const lightFolder = gui.addFolder('Light');
 
-    lightFolder.add(this.spotLight.position, 'x', -30, 30);
-    lightFolder.add(this.spotLight.position, 'y', -30, 30);
-    lightFolder.add(this.spotLight.position, 'z', -30, 30);
-    lightFolder.open();
+    // lightFolder.add(this.spotLight.position, 'x', -30, 30);
+    // lightFolder.add(this.spotLight.position, 'y', -30, 30);
+    // lightFolder.add(this.spotLight.position, 'z', -30, 30);
+    // lightFolder.open();
   }
 }

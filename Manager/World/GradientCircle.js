@@ -56,7 +56,7 @@ export default class GradientCircle {
     this.circle.material = this.materialGrad;
     this.circle.position.z = 0.001;
 
-    this.model.lettersTop.position.z = 0.002
+    this.model.lettersTop.position.z = 0.002;
     this.model.modelGroup.add(this.circle);
   }
 
@@ -123,7 +123,7 @@ export default class GradientCircle {
         },
         '<+=0.1'
       )
-      .to(this.model.letters.position, { z: -0.1, duration: 0.2 }, "<+=0.1")
+      .to(this.model.letters.position, { z: -0.1, duration: 0.2 }, '<+=0.1')
 
       .to(this.model.lettersTop.position, { z: 0.13 });
   }

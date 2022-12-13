@@ -37,22 +37,22 @@ export default class Camera {
     // // target.copy( lookAtVector ).add( rotAtVector );
     // // object.lookAt( target );
 
-    const gui = new GUI();
-    const folder = gui.addFolder('Camera Pos');
+    // const gui = new GUI();
+    // const folder = gui.addFolder('Camera Pos');
 
-    folder.add(this.perspectiveCamera.position, 'x', -30, 30, 0.01);
-    folder.add(this.perspectiveCamera.position, 'y', -30, 30, 0.01);
-    folder.add(this.perspectiveCamera.position, 'z', -30, 30, 0.01);
-    folder.open();
+    // folder.add(this.perspectiveCamera.position, 'x', -30, 30, 0.01);
+    // folder.add(this.perspectiveCamera.position, 'y', -30, 30, 0.01);
+    // folder.add(this.perspectiveCamera.position, 'z', -30, 30, 0.01);
+    // folder.open();
 
-    const folder2 = gui.addFolder('Camera Rot');
+    // const folder2 = gui.addFolder('Camera Rot');
 
-    folder2.add(this.perspectiveCamera.rotation, 'x', -10, 10, 0.01);
-    folder2.add(this.perspectiveCamera.rotation, 'y', -10, 10, 0.01);
-    folder2.add(this.perspectiveCamera.rotation, 'z', -10, 10, 0.01);
-    folder2.open();
+    // folder2.add(this.perspectiveCamera.rotation, 'x', -10, 10, 0.01);
+    // folder2.add(this.perspectiveCamera.rotation, 'y', -10, 10, 0.01);
+    // folder2.add(this.perspectiveCamera.rotation, 'z', -10, 10, 0.01);
+    // folder2.open();
 
-    this.setPath();
+    // this.setPath();
   }
 
   getTimeline() {
