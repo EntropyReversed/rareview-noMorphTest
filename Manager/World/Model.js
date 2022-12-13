@@ -55,7 +55,7 @@ export default class Model {
     this.modelGroup.add(this.circle);
     this.modelGroup.add(this.letters);
     this.modelGroup.add(this.lettersTop);
-    this.modelGroup.scale.set(0.47, 0.47, 0.47);
+    // this.modelGroup.scale.set(0.47, 0.47, 0.47);
 
     this.rimRingGroup.scale.set(0.47, 0.47, 0.47);
     this.modelGroup.add(this.rimRingGroup);
@@ -79,7 +79,7 @@ export default class Model {
     part.material.opacity = startOp;
     part.material.metalness = 0;
     part.material.roughness = 0.1;
-    part.material.depthWrite = false;
+    // part.material.depthWrite = false;
     // part.material.wireframe = true;
     part.material.flatShading = shade;
     // part.material.vertexColors = true;
@@ -92,9 +92,10 @@ export default class Model {
   createTimeline() {
     this.timeline = gsap
       .timeline()
+ 
       .to(this.circle.material, { opacity: 0.3 })
-      .to(this.modelGroup.scale, { x: 2, y: 2, duration: 0.8 }, '<')
-      .to(this.modelGroup.scale, { x: 2.6, y: 2.6, duration: 0.2 })
+      .to(this.modelGroup.scale, { x: 0.8, y: 0.8, duration: 0.8 }, '<')
+      .to(this.modelGroup.scale, { x: 1.2, y: 1.2, duration: 0.2 })
       .to(this.circle.material, { opacity: 1 }, '<')
       .to(this.modelGroup.rotation, { z: 0.6, duration: 0.4 }, '<')
       .to(
@@ -105,18 +106,17 @@ export default class Model {
 
     this.timeline2 = gsap
       .timeline()
-
       .set(this.circle.material, { opacity: 0 })
       .set(this.modelGroup.rotation, { z: 0 })
       .set(this.modelGroup.position, { x: 0.3, y: 0.08 })
       .set(this.lettersTop.material, { opacity: 1 })
-      .to(this.modelGroup.scale, { x: 2.6, y: 2.6, duration: 0.2 })
+      .to(this.modelGroup.scale, { x: 1.2, y: 1.2, duration: 0.2 })
       .to(
         this.modelGroup.position,
         { x: 0, z: 0.5, duration: 0.4, ease: 'power3.out' },
         '<+0.2'
       )
-      .to(this.lettersTop.material, { opacity: 0.4 }, '<')
+      // .to(this.lettersTop.material, { opacity: 0.4 }, '<')
       .to(this.lettersTop.material, { opacity: 1 }, '<+0.5');
 
     // this.timeline3 = gsap.timeline()

@@ -51,24 +51,10 @@ export default class GradientCircle {
     this.lettersTex.anisotropy =
       this.manager.renderer.renderer.capabilities.getMaxAnisotropy();
 
-
     this.materialGrad.uniforms.u_letters_texture.value = this.lettersTex;
     this.circle.geometry = this.geometry;
     this.circle.material = this.materialGrad;
-    this.circle.position.z = 0.0001;
-
-    // const gui = new GUI();
-    // const folder = gui.addFolder('Shader');
-
-    // folder.add(this.circle.material.uniforms.lUvScale, 'value', 1, 3, 0.001);
-    // folder.add(this.circle.material.uniforms.lUvposY, 'value', 0, 3, 0.001);
-    // folder.add(this.circle.material.uniforms.lUvposX, 'value', -1, 3, 0.001);
-
-    // folder.open();
-
-    // this.model.circle.morphTargetInfluences = [0.1, 0]
-    // this.model.letters.morphTargetInfluences = [0.1, 0]
-    // this.model.lettersTop.morphTargetInfluences = [0.1, 0]
+    this.circle.position.z = 0.001;
 
     this.model.modelGroup.add(this.circle);
   }
@@ -76,23 +62,23 @@ export default class GradientCircle {
   setUpTimeline() {
     const c = new THREE.Color('rgb(0,0,0)');
     this.timeline
-      // .set(this.model.circle.morphTargetInfluences, [0.002, 0])
-      // .set(this.model.letters.morphTargetInfluences, [0.002, 0])
-      // .set(this.model.lettersTop.morphTargetInfluences, [0.002, 0])
+
+      .set(this.model.lettersTop.position, { z: 0.002 })
+
       .fromTo(
         this.circle.scale,
         // { x: 0.463, y: 0.463 },
         // { x: 0.463, y: 0.463, duration: 0.8 }
 
         { x: 0, y: 0 },
-        { x: 1.5, y: 1.5, duration: 0.8 }
+        { x: 3.5, y: 3.5, duration: 0.8 }
       )
       .set(this.lines.circleMain.circle.material, { opacity: 0 })
 
       .to(this.model.modelGroup.rotation, { x: -1, z: -0.7, duration: 1 })
       .to(this.model.modelGroup.position, { z: 4, duration: 0.8 }, '<')
 
-      .to(this.circle.scale, { x: 0.464, y: 0.464 }, '<+0.3')
+      .to(this.circle.scale, { x: 1, y: 1 }, '<+0.3')
 
       .to(this.circle.material.uniforms.lettersV, {
         value: 1,
@@ -100,17 +86,14 @@ export default class GradientCircle {
       })
       .set(this.model.circle.material, { metalness: 0.97 })
       .set(this.model.letters.material, { metalness: 0.97 })
-      // .set(this.model.lettersTop.material, {
-      //   color: new THREE.Color('rgb(0,0,0)'),
-      // })
+      .set(this.model.lettersTop.material, {
+        color: new THREE.Color('rgb(0,0,0)'),
+      })
+      .set(this.model.lettersTop.position, { z: 0 })
 
       .set(this.model.circle.material, { opacity: 1 })
       .set(this.model.letters.material, { opacity: 1 })
       .set(this.model.lettersTop.material, { opacity: 1 })
-
-      .set(this.model.circle.material, { depthWrite: true })
-      .set(this.model.letters.material, { depthWrite: true })
-      .set(this.model.lettersTop.material, { depthWrite: true })
 
       .to(
         this.circle.material.uniforms.progress,
@@ -126,19 +109,22 @@ export default class GradientCircle {
         { metalness: 0.97, duration: 0.15 },
         '<'
       )
-      // .to(
-      //   c,
-      //   {
-      //     r: 200 / 255,
-      //     g: 200 / 255,
-      //     b: 200 / 255,
-      //     duration: 0.15,
-      //     onUpdate: () => {
-      //       this.model.lettersTop.material.color = c;
-      //     },
-      //   },
-      //   '<+=0.1'
-      // );
+      .to(
+        c,
+        {
+          r: 200 / 255,
+          g: 200 / 255,
+          b: 200 / 255,
+          duration: 0.15,
+          onUpdate: () => {
+            this.model.lettersTop.material.color = c;
+          },
+        },
+        '<+=0.1'
+      )
+      .to(this.model.letters.position, { z: -0.1, duration: 0.2 })
+
+      .to(this.model.lettersTop.position, { z: 0.13 });
   }
 
   generateTexture() {
