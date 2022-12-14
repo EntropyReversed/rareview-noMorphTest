@@ -1,5 +1,13 @@
 import Manager from './Manager';
-import * as THREE from 'three';
+import {
+  Vector2,
+  WebGLRenderer,
+  Color,
+  sRGBEncoding,
+  // ACESfilmicToneMapping,
+  CineonToneMapping,
+  PCFSoftShadowMap,
+} from 'three';
 import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
@@ -25,7 +33,7 @@ export default class Renderer {
   }
 
   setRenderer() {
-    this.renderer = new THREE.WebGLRenderer({
+    this.renderer = new WebGLRenderer({
       canvas: this.canvas,
       antialias: true,
       alpha: true,
@@ -33,14 +41,14 @@ export default class Renderer {
 
     this.renderer.powerPreference = 'high-performance';
     this.renderer.physicallyCorrectLights = true;
-    this.renderer.outputEncoding = THREE.sRGBEncoding;
-    // this.renderer.toneMapping = THREE.ACESfilmicToneMapping;
-    this.renderer.toneMapping = THREE.CineonToneMapping;
+    this.renderer.outputEncoding = sRGBEncoding;
+    // this.renderer.toneMapping = ACESfilmicToneMapping;
+    this.renderer.toneMapping = CineonToneMapping;
     this.renderer.toneMappingExposure = 2;
     this.renderer.gammaOutput = true;
     this.renderer.shadowMap.enabled = true;
-    this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-    this.renderer.setClearColor(new THREE.Color('rgb(0,0,0)'));
+    this.renderer.shadowMap.type = PCFSoftShadowMap;
+    this.renderer.setClearColor(new Color('rgb(0,0,0)'));
     this.renderer.setSize(this.sizes.width, this.sizes.height);
     this.renderer.setPixelRatio(this.sizes.pixelRatio);
     this.renderer.setViewport(0, 0, this.sizes.width, this.sizes.height);
@@ -53,7 +61,7 @@ export default class Renderer {
     );
 
     const bloomPass = new UnrealBloomPass(
-      new THREE.Vector2(this.sizes.width, this.sizes.height),
+      new Vector2(this.sizes.width, this.sizes.height),
       1.5,
       0.4,
       0.85

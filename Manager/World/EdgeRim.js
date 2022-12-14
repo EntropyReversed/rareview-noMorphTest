@@ -1,4 +1,4 @@
-import * as THREE from 'three';
+import { ShaderMaterial, UniformsUtils } from 'three';
 import gsap from 'gsap';
 import ShaderInnerRim from '../../Manager/World/ShaderInnerRim';
 import Manager from '../../Manager/Manager';
@@ -30,13 +30,13 @@ export default class EdgeRim {
     // this.inner.visible = false;
     this.inner.rotation.z = -0.95;
 
-    this.uniforms = THREE.UniformsUtils.merge([
+    this.uniforms = UniformsUtils.merge([
       { u_texture: { value: null } },
       { opacity: { value: 0 } },
       { progress: { value: 0.34 } },
     ]);
 
-    this.materialGrad = new THREE.ShaderMaterial({
+    this.materialGrad = new ShaderMaterial({
       uniforms: this.uniforms,
       ...ShaderInnerRim,
       transparent: true,

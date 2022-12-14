@@ -1,7 +1,7 @@
 import { EventEmitter } from 'events';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
-import * as THREE from 'three';
+import { TextureLoader } from 'three';
 import Manager from '../Manager';
 
 export default class Resources extends EventEmitter {
@@ -24,7 +24,7 @@ export default class Resources extends EventEmitter {
     this.loaders = {};
     this.loaders.gltfLoader = new GLTFLoader();
     this.loaders.dracoLoader = new DRACOLoader();
-    this.loaders.textureLoader = new THREE.TextureLoader();
+    this.loaders.textureLoader = new TextureLoader();
 
     this.loaders.dracoLoader.setDecoderPath(
       'https://www.gstatic.com/draco/v1/decoders/'
@@ -57,7 +57,9 @@ export default class Resources extends EventEmitter {
     if (this.loaded === this.queue) {
       this.emit('ready');
       // document.body.classList.remove('loading');
-      setTimeout(() => {document.body.classList.remove('loading')}, 500)
+      setTimeout(() => {
+        document.body.classList.remove('loading');
+      }, 500);
     }
   }
 }

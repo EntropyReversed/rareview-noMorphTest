@@ -1,5 +1,5 @@
-import { GUI } from 'dat.gui';
-import * as THREE from 'three';
+// import { GUI } from 'dat.gui';
+import { MeshStandardMaterial, Color } from 'three';
 import gsap from 'gsap';
 
 const linesData = [
@@ -18,7 +18,7 @@ const linesData = [
   ['teal', '<', 0.48],
 ];
 
-const modelLineMaterial = new THREE.MeshStandardMaterial();
+const modelLineMaterial = new MeshStandardMaterial();
 
 export default class ModelLines {
   constructor(line, group) {
@@ -34,7 +34,7 @@ export default class ModelLines {
     for (let i = 0; i < linesData.length; i++) {
       const mesh = this.line.clone();
       mesh.material = modelLineMaterial.clone();
-      mesh.material.color = new THREE.Color(linesData[i][0]);
+      mesh.material.color = new Color(linesData[i][0]);
       mesh.material.depthWrite = false;
       mesh.material.transparent = true;
       mesh.material.needsUpdate = true;

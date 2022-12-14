@@ -1,9 +1,9 @@
-import * as THREE from 'three';
+import { CanvasTexture } from 'three';
 
 export default class Textures {
   constructor() {
-    this.gradientTexture = new THREE.CanvasTexture(this.generateTexture())
-    this.lettersTexture = new THREE.CanvasTexture(this.generateTextureLetters())
+    this.gradientTexture = new CanvasTexture(this.generateTexture());
+    this.lettersTexture = new CanvasTexture(this.generateTextureLetters());
   }
 
   generateTexture() {
@@ -13,13 +13,13 @@ export default class Textures {
     canvas.width = size;
     canvas.height = size;
     ctx.rect(0, 0, size, size);
-  
+
     const gradient = ctx.createLinearGradient(size / 2, 0, size / 2, size);
     gradient.addColorStop(0, '#a59bf4');
     gradient.addColorStop(1, '#f2a0ac');
     ctx.fillStyle = gradient;
     ctx.fill();
-  
+
     return canvas;
   }
 

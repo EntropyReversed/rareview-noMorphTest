@@ -1,8 +1,15 @@
-import * as THREE from 'three';
+import {
+  Mesh,
+  PlaneGeometry,
+  Clock,
+  Color,
+  ShaderMaterial,
+  UniformsUtils,
+} from 'three';
 import Manager from '../Manager';
 import Shader from './Shader';
 import gsap from 'gsap';
-import { GUI } from 'dat.gui';
+// import { GUI } from 'dat.gui';
 
 export default class GradientCircle {
   constructor(lines, model) {
@@ -20,12 +27,12 @@ export default class GradientCircle {
   }
 
   setCircleGrad() {
-    this.circle = new THREE.Mesh();
-    this.geometry = new THREE.PlaneGeometry(4.25, 4.25);
+    this.circle = new Mesh();
+    this.geometry = new PlaneGeometry(4.25, 4.25);
 
-    this.clock = new THREE.Clock();
+    this.clock = new Clock();
 
-    this.uniforms = THREE.UniformsUtils.merge([
+    this.uniforms = UniformsUtils.merge([
       { u_texture: { value: null } },
       { u_letters_texture: { value: null } },
       { u_time: { value: this.clock.getElapsedTime() } },
@@ -34,7 +41,7 @@ export default class GradientCircle {
       { progress: { value: -0.1 } },
     ]);
 
-    this.materialGrad = new THREE.ShaderMaterial({
+    this.materialGrad = new ShaderMaterial({
       uniforms: this.uniforms,
       ...Shader,
       // lights: true,
@@ -42,7 +49,7 @@ export default class GradientCircle {
     });
     this.materialGrad.depthWrite = false;
 
-    // THREE.UniformsUtils.merge() calls THREE.clone() on each uniform.
+    // UniformsUtils.merge() calls THREE.clone() on each uniform.
     // Texture needs to be assigned here so it's not cloned
     this.materialGrad.uniforms.u_texture.value = this.texture;
 
@@ -59,7 +66,7 @@ export default class GradientCircle {
   }
 
   setUpTimeline() {
-    const c = new THREE.Color('rgb(0,0,0)');
+    const c = new Color('rgb(0,0,0)');
     this.timeline
       .set(this.model.lettersTop.position, { z: 0.0012 })
       .fromTo(
@@ -133,7 +140,7 @@ export default class GradientCircle {
       )
       .to('.thirdTitle', { opacity: 0 }, '<+0.3')
 
-      .to(this.model.lettersTop.position, { z: 0.2, duration: 0.2 }, "-=0.3")
+      .to(this.model.lettersTop.position, { z: 0.2, duration: 0.2 }, '-=0.3')
       .to(this.model.lettersTop.scale, { z: 1.9, duration: 0.2 }, '<');
   }
 

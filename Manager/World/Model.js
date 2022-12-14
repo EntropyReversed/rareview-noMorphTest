@@ -1,11 +1,11 @@
-import * as THREE from 'three';
+import { Color, Group, MeshStandardMaterial } from 'three';
 import gsap from 'gsap';
 import Manager from '../Manager';
 import GradientCircle from './GradientCircle';
 import LinesAnimation from './LinesAnimation';
 import ModelLines from '../../Manager/World/ModelLines';
 import EdgeRim from '../../Manager/World/EdgeRim';
-import * as BufferGeometryUtils from 'three/examples/jsm/utils/BufferGeometryUtils';
+// import * as BufferGeometryUtils from 'three/examples/jsm/utils/BufferGeometryUtils';
 
 export default class Model {
   constructor() {
@@ -13,7 +13,7 @@ export default class Model {
     this.scene = this.manager.scene;
     this.resources = this.manager.resources;
     this.model = this.resources.items.model;
-    this.mainColor = new THREE.Color('rgb(200,200,200)');
+    this.mainColor = new Color('rgb(200,200,200)');
 
     this.setModel();
 
@@ -26,8 +26,8 @@ export default class Model {
   }
 
   setModel() {
-    this.rimRingGroup = new THREE.Group();
-    this.modelGroup = new THREE.Group();
+    this.rimRingGroup = new Group();
+    this.modelGroup = new Group();
 
     this.model.scene.traverse((child) => {
       console.log(child);
@@ -76,7 +76,7 @@ export default class Model {
   setModelPart(part, startOp = 0, shade = false) {
     // part.layers.enable(0);
 
-    part.material = new THREE.MeshStandardMaterial();
+    part.material = new MeshStandardMaterial();
 
     // part.geometry.computeTangents();
     // part.geometry.computeVertexNormals();
